@@ -5,10 +5,11 @@ public class Permissions {
     private String permname;
     private int digit;
 
-    public void Permissions(String s,int d)
-    {
-        pername=s;
-        digit=d;
+    public void Permissions(String s, int d) {
+        pername = s;
+        digit = d;
     }
+
+
 }
 
