@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -10,21 +11,16 @@ public class Main {
         }
         System.out.println("");
 
+        ArrayList<User> userList = new ArrayList<>();
         User user1 = new User(1, "John Doe", "jdoe", "sup3rpaZZ");
-        Input input = new Input(args);
-        HashMap<String, String> hashMap = input.parse(user1);
+        userList.add(user1);
+        User user2 = new User(2, "Jane Row", "jrow", "Qweqrty12");
+        userList.add(user2);
 
-        if (user1.getLogin().equals(hashMap.get("login"))) {
-            if (user1.getPassword().equals(hashMap.get("pass"))) {
-                System.out.println("Logged successfully.");
-                System.exit(0);
-            } else {
-                System.out.println("Wrong password!");
-                System.exit(2);
-            }
-        } else {
-            System.out.println("Wrong login!");
-            System.exit(1);
-        }
+        Input input = new Input(args);
+        HashMap<String, String> hashMap = input.parse();
+
+        Logging logging = new Logging();
+        logging.authorisation(userList, hashMap);
     }
 }

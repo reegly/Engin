@@ -23,7 +23,7 @@ public class Input {
 
     }
 
-    public HashMap<String, String> parse(User user) {
+    public HashMap<String, String> parse() {
         CommandLineParser parser = new BasicParser();
         CommandLine cmd = null;
 
@@ -34,7 +34,6 @@ public class Input {
                 help();
             }
             if (cmd.hasOption("l")) {
-                System.out.println("You're trying to login as " + user.getName());
                 hashMap.put("login", cmd.getOptionValue("l"));
             }
             if (cmd.hasOption("p")) {
