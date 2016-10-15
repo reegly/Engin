@@ -8,10 +8,9 @@ import java.security.NoSuchAlgorithmException;
 
 public class Hash {
 
-    public static String makeHash(String password, String salt) {
-        password = getHash(password);
-        password += salt;
-        password = getHash(password);
+    public static String makeHash(String password) {
+        String salt = "shajKKheyg1";
+        password = getHash(getHash(password) + salt);
         return password;
     }
 
@@ -36,7 +35,6 @@ public class Hash {
         } catch (NoSuchAlgorithmException e) {
             return e.toString();
         }
-
 
 
         return hexString.toString();
