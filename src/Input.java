@@ -1,9 +1,7 @@
 import org.apache.commons.cli.*;
 
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  * Created by reegl on 30.09.2016.
  */
@@ -12,9 +10,9 @@ public class Input {
     private static final Logger log = Logger.getLogger(Input.class.getName());
     private String[] args = null;
     private Options options = new Options();
-    private HashMap<String, String> hashMap = new HashMap<>();
 
     public Input(String[] args) {
+
         this.args = args;
 
         options.addOption("h", "help", false, "Show help.");
@@ -23,35 +21,28 @@ public class Input {
 
     }
 
-    public HashMap<String, String> parse(User user) {
+    public void parse() {
         CommandLineParser parser = new BasicParser();
-        CommandLine cmd = null;
 
+        CommandLine cmd = null;
         try {
             cmd = parser.parse(options, args);
 
-            if (cmd.hasOption("h")) {
+            if (cmd.hasOption("h"))
                 help();
-            }
+
             if (cmd.hasOption("l")) {
-                System.out.println("You're trying to login as " + user.getName());
-                hashMap.put("login", cmd.getOptionValue("l"));
-            }
-            if (cmd.hasOption("p")) {
-                hashMap.put("pass", cmd.getOptionValue("p"));
+                System.out.println("You trying to login as " + args[0]);
+                // Whatever you want to do with the setting goes here
+            } else {
+                log.log(Level.SEVERE, "Missing option");
+                help();
             }
 
         } catch (ParseException e) {
             log.log(Level.SEVERE, "Failed to parse command line properties", e);
             help();
         }
-
-        if(hashMap.isEmpty()) {
-            log.log(Level.SEVERE, "Missing options");
-            help();
-        }
-
-        return hashMap;
     }
 
     private void help() {

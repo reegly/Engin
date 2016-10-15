@@ -6,8 +6,8 @@ public class Permissions {
     private int digit;
 
     public void Permissions(String s, int d) {
-        pername = s;
-        digit = d;
+        this.permname = s;
+        this.digit = d;
     }
 
 
