@@ -12,6 +12,7 @@ public class User {
         this.name = name;
         this.login = login;
         this.password = Hash.makeHash(password);
+    }
 
     public String getLogin() { return login; }
 

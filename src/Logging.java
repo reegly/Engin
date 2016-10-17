@@ -21,7 +21,7 @@ public class Logging {
             System.exit(1);
         }
 
-        if (currentUser.getPassword().equals(hashMap.get("pass"))) {
+        if (currentUser.getPassword().equals(Hash.makeHash(hashMap.get("pass")))) {
             System.out.println("Logged successfully.");
             System.exit(0);
         } else {
