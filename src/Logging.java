@@ -1,11 +1,27 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by reegl on 07.10.2016.
- */
+
 public class Logging {
-    public void authorisation (ArrayList<User> userList, HashMap<String, String> hashMap) {
+    public void executeLogin(ArrayList<User> userList, ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
+        if (authenticationCheck(hashMap)) {
+            authentication(userList, hashMap);
+        } else {
+            printHelp();
+        }
+
+        if (hashMap.size() > 2) {
+            if (authorizationCheck(hashMap)) {
+                authorization(roleList, hashMap);
+            } else {
+                printHelp();
+            }
+        }
+
+        System.exit(0);
+    }
+
+    private void authentication(ArrayList<User> userList, HashMap<String, String> hashMap) {
         boolean userFound = false;
         User currentUser = null;
 
@@ -23,10 +39,26 @@ public class Logging {
 
         if (currentUser.getPassword().equals(Hash.makeHash(hashMap.get("pass")))) {
             System.out.println("Logged successfully.");
-            System.exit(0);
         } else {
             System.out.println("Wrong password!");
             System.exit(2);
         }
+    }
+
+    private void authorization(ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
+        System.out.println("DICKS OUT FOR HARAMBE");
+    }
+
+    private void printHelp() {
+        System.out.println("Missing options");
+        Input.help();
+    }
+
+    private static boolean authenticationCheck(HashMap<String, String> hashMap) {
+        return hashMap.containsKey("login") && hashMap.containsKey("pass");
+    }
+
+    private static boolean authorizationCheck(HashMap<String, String> hashMap) {
+        return hashMap.containsKey("role") && hashMap.containsKey("resource") && authenticationCheck(hashMap);
     }
 }

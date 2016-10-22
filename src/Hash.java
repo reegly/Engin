@@ -1,7 +1,3 @@
-/**
- * Created by Stig on 08.10.2016.
- */
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

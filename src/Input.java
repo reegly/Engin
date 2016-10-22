@@ -4,14 +4,11 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by reegl on 30.09.2016.
- */
 
 public class Input {
     private static final Logger log = Logger.getLogger(Input.class.getName());
     private String[] args = null;
-    private Options options = new Options();
+    private static Options options = new Options();
     private HashMap<String, String> hashMap = new HashMap<>();
 
     public Input(String[] args) {
@@ -20,7 +17,8 @@ public class Input {
         options.addOption("h", "help", false, "Show help.");
         options.addOption("l", "login", true, "Login.");
         options.addOption("p", "password", true, "Password.");
-
+        options.addOption("rs", "resource", true, "Resource.");
+        options.addOption("rl", "role", true, "Role.");
     }
 
     public HashMap<String, String> parse() {
@@ -39,6 +37,12 @@ public class Input {
             if (cmd.hasOption("p")) {
                 hashMap.put("pass", cmd.getOptionValue("p"));
             }
+            if (cmd.hasOption("rs")) {
+                hashMap.put("resource", cmd.getOptionValue("rs"));
+            }
+            if (cmd.hasOption("rl")) {
+                hashMap.put("role", cmd.getOptionValue("rl"));
+            }
 
         } catch (ParseException e) {
             log.log(Level.SEVERE, "Failed to parse command line properties", e);
@@ -53,11 +57,11 @@ public class Input {
         return hashMap;
     }
 
-    private void help() {
+    public static void help() {
         // This prints out some help
-        HelpFormatter formater = new HelpFormatter();
+        HelpFormatter formatter = new HelpFormatter();
 
-        formater.printHelp("Main", options);
+        formatter.printHelp("Main", options);
         System.exit(0);
     }
 }
