@@ -4,20 +4,29 @@ import java.util.HashMap;
 
 public class Logging {
     public void executeLogin(ArrayList<User> userList, ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
-        if (authenticationCheck(hashMap)) {
-            authentication(userList, hashMap);
-        } else {
-            printHelp();
-        }
-
-        if (hashMap.size() > 2) {
-            if (authorizationCheck(hashMap)) {
-                authorization(roleList, hashMap);
-            } else {
+        switch (hashMap.size()) {
+            case 2: {
+                if (authenticationCheck(hashMap)) {
+                    authentication(userList, hashMap);
+                } else {
+                    printHelp();
+                }
+                break;
+            }
+            case 4: {
+                if (authorizationCheck(hashMap) && authenticationCheck(hashMap)) {
+                    authentication(userList, hashMap);
+                    authorization(roleList, hashMap);
+                } else {
+                    printHelp();
+                }
+                break;
+            }
+            default: {
                 printHelp();
+                break;
             }
         }
-
         System.exit(0);
     }
 
