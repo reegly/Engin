@@ -17,8 +17,8 @@ public class Input {
         options.addOption("h", "help", false, "Show help.");
         options.addOption("l", "login", true, "Login.");
         options.addOption("p", "password", true, "Password.");
-        options.addOption("rs", "resource", true, "Resource.");
-        options.addOption("rl", "role", true, "Role.");
+        options.addOption("res", "resource", true, "Resource.");
+        options.addOption("role", "role", true, "Role.");
     }
 
     public HashMap<String, String> parse() {
@@ -37,11 +37,11 @@ public class Input {
             if (cmd.hasOption("p")) {
                 hashMap.put("pass", cmd.getOptionValue("p"));
             }
-            if (cmd.hasOption("rs")) {
-                hashMap.put("resource", cmd.getOptionValue("rs"));
+            if (cmd.hasOption("res")) {
+                hashMap.put("resource", cmd.getOptionValue("res"));
             }
-            if (cmd.hasOption("rl")) {
-                hashMap.put("role", cmd.getOptionValue("rl"));
+            if (cmd.hasOption("role")) {
+                hashMap.put("role", cmd.getOptionValue("role"));
             }
 
         } catch (ParseException e) {

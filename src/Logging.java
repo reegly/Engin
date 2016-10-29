@@ -14,7 +14,7 @@ public class Logging {
                 break;
             }
             case 4: {
-                if (authorizationCheck(hashMap) && authenticationCheck(hashMap)) {
+                if (authorizationCheck(hashMap)) {
                     authentication(userList, hashMap);
                     authorization(roleList, hashMap);
                 } else {
@@ -22,6 +22,7 @@ public class Logging {
                 }
                 break;
             }
+            //case 7: { break; }
             default: {
                 printHelp();
                 break;
@@ -55,7 +56,40 @@ public class Logging {
     }
 
     private void authorization(ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
-        System.out.println("DICKS OUT FOR HARAMBE");
+        Permissions parsedRole = null;
+        Roles currentRole = null;
+        boolean roleFound = false;
+
+        switch (hashMap.get("role").toUpperCase()) {
+            case "READ": {
+                parsedRole = Permissions.READ;
+                break;
+            }
+            case "WRITE": {
+                parsedRole = Permissions.WRITE;
+                break;
+            }
+            case "EXECUTE": {
+                parsedRole = Permissions.EXECUTE;
+                break;
+            }
+            default: {
+                System.out.println(hashMap.get("role") + " is unknown role!");
+                System.exit(3);
+            }
+        }
+
+        for (Roles roles : roleList) {
+            if (roles.getLogin().equals(hashMap.get("login")) && roles.getRole().equals(parsedRole)) {
+                System.out.println("HOLY FUCK YOU HAVE " + parsedRole.toString() + " PERMISSION");
+                //Проверка доступа...
+                roleFound = true;
+            }
+        }
+        if (!roleFound) {
+            System.out.println("Access denied!");
+            System.exit(4);
+        }
     }
 
     private void printHelp() {
