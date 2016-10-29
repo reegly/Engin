@@ -17,6 +17,9 @@ public class Input {
         options.addOption("h", "help", false, "Show help.");
         options.addOption("l", "login", true, "Login.");
         options.addOption("p", "password", true, "Password.");
+        options.addOption("ds", "start_date", true, "Start.");
+        options.addOption("de", "end_date", true, "End.");
+        options.addOption("vol", "volume_resource", true, "Resource.");
         options.addOption("res", "resource", true, "Resource.");
         options.addOption("role", "role", true, "Role.");
     }
@@ -42,6 +45,18 @@ public class Input {
             }
             if (cmd.hasOption("role")) {
                 hashMap.put("role", cmd.getOptionValue("role"));
+            }
+
+            if (cmd.hasOption("ds")) {
+                hashMap.put("start_date", cmd.getOptionValue("ds"));
+            }
+
+            if (cmd.hasOption("de")) {
+                hashMap.put("end_date", cmd.getOptionValue("de"));
+            }
+
+            if (cmd.hasOption("vol")) {
+                hashMap.put("volume_resource", cmd.getOptionValue("vol"));
             }
 
         } catch (ParseException e) {

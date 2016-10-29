@@ -11,9 +11,15 @@ public class User {
         this.password = Hash.makeHash(password);
     }
 
-    public String getLogin() { return login; }
+    public String getLogin() {
+        return login;
+    }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 }
