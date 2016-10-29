@@ -19,6 +19,9 @@ public class Input {
         options.addOption("p", "password", true, "Password.");
         options.addOption("rs", "resource", true, "Resource.");
         options.addOption("rl", "role", true, "Role.");
+        options.addOption("ds", "start_date", true, "Start.");
+        options.addOption("de", "end_date", true, "End.");
+        options.addOption("vol", "volume_resource", true, "Resource.");
     }
 
     public HashMap<String, String> parse() {
@@ -42,6 +45,18 @@ public class Input {
             }
             if (cmd.hasOption("rl")) {
                 hashMap.put("role", cmd.getOptionValue("rl"));
+            }
+
+            if (cmd.hasOption("ds")) {
+                hashMap.put("start_date", cmd.getOptionValue("ds"));
+            }
+
+            if (cmd.hasOption("de")) {
+                hashMap.put("end_date", cmd.getOptionValue("de"));
+            }
+
+            if (cmd.hasOption("vol")) {
+                hashMap.put("volume_resource", cmd.getOptionValue("vol"));
             }
 
         } catch (ParseException e) {

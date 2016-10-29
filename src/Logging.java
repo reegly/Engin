@@ -22,6 +22,8 @@ public class Logging {
                 }
                 break;
             }
+
+
             default: {
                 printHelp();
                 break;
