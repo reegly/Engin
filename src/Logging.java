@@ -22,7 +22,16 @@ public class Logging {
                 }
                 break;
             }
-            //case 7: { break; }
+            case 7: {
+                if (accountingCheck(hashMap)) {
+                    authentication(userList, hashMap);
+                    authorization(roleList, hashMap);
+                    //accounting
+                } else {
+                    printHelp();
+                }
+                break;
+            }
             default: {
                 printHelp();
                 break;
@@ -102,6 +111,15 @@ public class Logging {
     }
 
     private static boolean authorizationCheck(HashMap<String, String> hashMap) {
-        return hashMap.containsKey("role") && hashMap.containsKey("resource") && authenticationCheck(hashMap);
+        return hashMap.containsKey("role")
+                && hashMap.containsKey("resource")
+                && authenticationCheck(hashMap);
+    }
+
+    private static boolean accountingCheck(HashMap<String, String> hashMap) {
+        return hashMap.containsKey("ds")
+                && hashMap.containsKey("de")
+                && hashMap.containsKey("vol")
+                && authorizationCheck(hashMap);
     }
 }
