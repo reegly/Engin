@@ -2,24 +2,10 @@
 import java.util.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Time {
-    public static Date getTime(HashMap<String, String> hashMap) {
-        String t = hashMap.get("start_date");
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
-        Date time1 = new Date();
-        try {
-            time1 = format.parse(t);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return time1;
-    }
 
 
     public static long sestime(HashMap<String, String> hashMap) {
