@@ -22,7 +22,15 @@ public class Logging {
                 }
                 break;
             }
-
+            case 7: {
+                if (authorizationCheck(hashMap) && authenticationCheck(hashMap)) {
+                    authentication(userList, hashMap);
+                    authorization(roleList, hashMap);
+                } else {
+                    printHelp();
+                }
+                break;
+            }
 
             default: {
                 printHelp();
