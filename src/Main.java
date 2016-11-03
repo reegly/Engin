@@ -17,19 +17,20 @@ public class Main {
         userList.add(user2);
 
         ArrayList<Roles> roleList = new ArrayList<>();
-        Roles role1 = new Roles(1, "jdoe", Permissions.READ, "a");          roleList.add(role1);
-        Roles role2 = new Roles(2, "jdoe", Permissions.WRITE, "a.b");       roleList.add(role2);
-        Roles role3 = new Roles(3, "jrow", Permissions.EXECUTE, "a.b.c");   roleList.add(role3);
-        Roles role4 = new Roles(4, "jdoe", Permissions.EXECUTE, "a.bc");    roleList.add(role4);
+        Roles role1 = new Roles(1, "jdoe", Permissions.READ, "a");
+        roleList.add(role1);
+        Roles role2 = new Roles(1, "jdoe", Permissions.WRITE, "a.b");
+        roleList.add(role2);
+        Roles role3 = new Roles(1, "jrow", Permissions.EXECUTE, "a.b.c");
+        roleList.add(role3);
+        Roles role4 = new Roles(1, "jdoe", Permissions.EXECUTE, "a.bc");
+        roleList.add(role4);
 
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-        }
-        System.out.println("\n" + Time.getTime() + "\n");
-        System.out.println(Time.sestime(d));
+
         Input input = new Input(args);
         HashMap<String, String> hashMap = input.parse();
+
+        System.out.println("Time of session: " + Time.sestime(hashMap) + " days");
 
         Logging logging = new Logging();
         logging.executeLogin(userList, roleList, hashMap);
