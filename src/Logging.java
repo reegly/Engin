@@ -26,7 +26,7 @@ public class Logging {
                 if (accountingCheck(hashMap)) {
                     authentication(userList, hashMap);
                     authorization(roleList, hashMap);
-                    //accounting
+                    //accounting(whatever, hashMap);
                 } else {
                     printHelp();
                 }
@@ -66,8 +66,8 @@ public class Logging {
 
     private void authorization(ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
         Permissions parsedRole = null;
-        Roles currentRole = null;
         boolean roleFound = false;
+        String userResource;
 
         switch (hashMap.get("role").toUpperCase()) {
             case "READ": {
@@ -90,9 +90,11 @@ public class Logging {
 
         for (Roles roles : roleList) {
             if (roles.getLogin().equals(hashMap.get("login")) && roles.getRole().equals(parsedRole)) {
-                System.out.println("HOLY FUCK YOU HAVE " + parsedRole.toString() + " PERMISSION");
-                //Проверка доступа...
-                roleFound = true;
+                userResource = roles.getResource();
+                if (resourceCheck(hashMap, userResource)) {
+                    System.out.println("Access granted!");
+                    roleFound = true;
+                }
             }
         }
         if (!roleFound) {
@@ -121,5 +123,20 @@ public class Logging {
                 && hashMap.containsKey("de")
                 && hashMap.containsKey("vol")
                 && authorizationCheck(hashMap);
+    }
+
+    private boolean resourceCheck(HashMap<String, String> hashMap, String userResource) {
+        String parsedRes[] = hashMap.get("resource").split("\\.");
+        String currentRes[] = userResource.split("\\.");
+        if (parsedRes.length < currentRes.length) {
+            return false;
+        } else {
+            for (int i = 0; i < currentRes.length; i++) {
+                if (!parsedRes[i].equals(currentRes[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

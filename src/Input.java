@@ -17,11 +17,11 @@ public class Input {
         options.addOption("h", "help", false, "Show help.");
         options.addOption("l", "login", true, "Login.");
         options.addOption("p", "password", true, "Password.");
+        options.addOption("res", "resource", true, "Resource.");
+        options.addOption("role", "role", true, "Role.");
         options.addOption("ds", "start_date", true, "Start.");
         options.addOption("de", "end_date", true, "End.");
         options.addOption("vol", "volume_resource", true, "Resource.");
-        options.addOption("res", "resource", true, "Resource.");
-        options.addOption("role", "role", true, "Role.");
     }
 
     public HashMap<String, String> parse() {
