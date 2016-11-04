@@ -119,9 +119,9 @@ public class Logging {
     }
 
     private static boolean accountingCheck(HashMap<String, String> hashMap) {
-        return hashMap.containsKey("ds")
-                && hashMap.containsKey("de")
-                && hashMap.containsKey("vol")
+        return hashMap.containsKey("start_date")
+                && hashMap.containsKey("end_date")
+                && hashMap.containsKey("volume_resource")
                 && authorizationCheck(hashMap);
     }
 
