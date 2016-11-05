@@ -2,6 +2,23 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 public class Accounting {
+    private String start_date;
+    private String end_date;
+    private String value;
+    private String user;
+    private String role;
+
+
+
+    Accounting(HashMap<String, String> hashMap)
+    {
+        this.start_date=hashMap.get("start_date");
+        this.end_date=hashMap.get("end_date");
+        this.value=hashMap.get("volume_resource");
+        this.user=hashMap.get("login");
+        this.role=hashMap.get("role");
+    }
+
 
 
     public static boolean validtime(HashMap<String, String> hashMap) {

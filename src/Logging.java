@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 
 public class Logging {
-    public void executeLogin(ArrayList<User> userList, ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
+    public void executeLogin(ArrayList<Accounting> accountsList,ArrayList<User> userList, ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
         switch (hashMap.size()) {
             case 2: {
                 if (authenticationCheck(hashMap)) {
@@ -26,7 +26,7 @@ public class Logging {
                 if (accountingCheck(hashMap)) {
                     authentication(userList, hashMap);
                     authorization(roleList, hashMap);
-                    accounting(hashMap);
+                    accounting(accountsList,hashMap);
                 } else {
                     printHelp();
                 }
@@ -104,7 +104,7 @@ public class Logging {
     }
 
 
-    private void accounting(HashMap<String, String> hashMap) {
+    private void accounting(ArrayList<Accounting> accList,HashMap<String, String> hashMap) {
         boolean valid = true;
         if (!Accounting.validtime(hashMap)) {
             System.out.println("Data has a wrong format!");
@@ -120,6 +120,10 @@ public class Logging {
             System.out.println("Unvalid activity!");
             System.exit(5);
         }
+
+
+        Accounting acc= new Accounting(hashMap);
+        accList.add(acc);
     }
 
     private void printHelp() {
