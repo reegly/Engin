@@ -16,7 +16,7 @@ public class Input {
 
         options.addOption("h", "help", false, "Show help.");
         options.addOption("l", "login", true, "Login.");
-        options.addOption("p", "password", true, "Password.");
+        options.addOption("p", "pass", true, "Password.");
         options.addOption("res", "resource", true, "Resource.");
         options.addOption("role", "role", true, "Role.");
         options.addOption("ds", "start_date", true, "Start.");
