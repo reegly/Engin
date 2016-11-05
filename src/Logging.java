@@ -26,7 +26,7 @@ public class Logging {
                 if (accountingCheck(hashMap)) {
                     authentication(userList, hashMap);
                     authorization(roleList, hashMap);
-                    //accounting(whatever, hashMap);
+                    accounting(hashMap);
                 } else {
                     printHelp();
                 }
@@ -100,6 +100,25 @@ public class Logging {
         if (!roleFound) {
             System.out.println("Access denied!");
             System.exit(4);
+        }
+    }
+
+
+    private void accounting(HashMap<String, String> hashMap) {
+        boolean valid = true;
+        if (!Accounting.validtime(hashMap)) {
+            System.out.println("Data has a wrong format!");
+            valid = false;
+        }
+
+        if (!Accounting.validvalue(hashMap)) {
+            System.out.println("Value is incorrect!");
+            valid = false;
+        }
+
+        if (!valid) {
+            System.out.println("Unvalid activity!");
+            System.exit(5);
         }
     }
 

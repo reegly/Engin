@@ -23,7 +23,7 @@ public class Main {
         Input input = new Input(args);
         HashMap<String, String> hashMap = input.parse();
 
-        //System.out.println("Time of session: " + Time.sestime(hashMap) + " days");
+
 
         Logging logging = new Logging();
         logging.executeLogin(userList, roleList, hashMap);
