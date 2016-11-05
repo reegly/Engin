@@ -2,27 +2,15 @@ import java.util.*;
 import java.text.SimpleDateFormat;
 
 public class Accounting {
-   /* private Date Date1;
-    private Date Date2;
-    private double val;*/
 
-    /*Accounting(String s1,String s2, double val)
-    {
-        this.val=val;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            this.Date1 = format.parse(s1);
-            this.Date2 = format.parse(s2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public static boolean validtime(HashMap<String, String> hashMap) {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
 
         try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            format.setLenient(false);
             format.parse(hashMap.get("start_date"));
             format.parse(hashMap.get("end_date"));
 
