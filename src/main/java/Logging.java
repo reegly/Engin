@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 
 public class Logging {
-    public void executeLogin(ArrayList<Accounting> accountsList,ArrayList<User> userList, ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
+    public void executeLogin(ArrayList<Accounting> accountsList, ArrayList<User> userList, ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
         switch (hashMap.size()) {
             case 2: {
                 if (authenticationCheck(hashMap)) {
@@ -26,7 +26,7 @@ public class Logging {
                 if (accountingCheck(hashMap)) {
                     authentication(userList, hashMap);
                     authorization(roleList, hashMap);
-                    accounting(accountsList,hashMap);
+                    accounting(accountsList, hashMap);
                 } else {
                     printHelp();
                 }
@@ -104,14 +104,14 @@ public class Logging {
     }
 
 
-    private void accounting(ArrayList<Accounting> accList,HashMap<String, String> hashMap) {
+    private void accounting(ArrayList<Accounting> accountList, HashMap<String, String> hashMap) {
         boolean valid = true;
-        if (!Accounting.validtime(hashMap)) {
+        if (!Accounting.validTime(hashMap)) {
             System.out.println("Data has a wrong format!");
             valid = false;
         }
 
-        if (!Accounting.validvalue(hashMap)) {
+        if (!Accounting.validValue(hashMap)) {
             System.out.println("Value is incorrect!");
             valid = false;
         }
@@ -121,9 +121,8 @@ public class Logging {
             System.exit(5);
         }
 
-
-        Accounting acc= new Accounting(hashMap);
-        accList.add(acc);
+        Accounting acc = new Accounting(hashMap);
+        accountList.add(acc);
     }
 
     private void printHelp() {
@@ -142,9 +141,9 @@ public class Logging {
     }
 
     private static boolean accountingCheck(HashMap<String, String> hashMap) {
-        return hashMap.containsKey("start_date")
-                && hashMap.containsKey("end_date")
-                && hashMap.containsKey("volume_resource")
+        return hashMap.containsKey("startDate")
+                && hashMap.containsKey("endDate")
+                && hashMap.containsKey("volumeResource")
                 && authorizationCheck(hashMap);
     }
 

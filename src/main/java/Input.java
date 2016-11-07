@@ -48,15 +48,15 @@ public class Input {
             }
 
             if (cmd.hasOption("ds")) {
-                hashMap.put("start_date", cmd.getOptionValue("ds"));
+                hashMap.put("startDate", cmd.getOptionValue("ds"));
             }
 
             if (cmd.hasOption("de")) {
-                hashMap.put("end_date", cmd.getOptionValue("de"));
+                hashMap.put("endDate", cmd.getOptionValue("de"));
             }
 
             if (cmd.hasOption("vol")) {
-                hashMap.put("volume_resource", cmd.getOptionValue("vol"));
+                hashMap.put("volumeResource", cmd.getOptionValue("vol"));
             }
 
         } catch (ParseException e) {
@@ -64,7 +64,7 @@ public class Input {
             help();
         }
 
-        if(hashMap.isEmpty()) {
+        if (hashMap.isEmpty()) {
             log.log(Level.SEVERE, "Missing options");
             help();
         }
@@ -73,7 +73,6 @@ public class Input {
     }
 
     public static void help() {
-        // This prints out some help
         HelpFormatter formatter = new HelpFormatter();
 
         formatter.printHelp("Main", options);

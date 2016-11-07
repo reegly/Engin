@@ -17,12 +17,9 @@ public class Hash {
         StringBuffer hexString = new StringBuffer();
 
         try {
-
             md5 = MessageDigest.getInstance("md5");
-
             md5.reset();
             md5.update(str.getBytes());
-
 
             byte messageDigest[] = md5.digest();
 
@@ -33,7 +30,6 @@ public class Hash {
         } catch (NoSuchAlgorithmException e) {
             return e.toString();
         }
-
 
         return hexString.toString();
     }
