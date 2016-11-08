@@ -26,7 +26,7 @@ public class Input {
 
     public HashMap<String, String> parse() {
         CommandLineParser parser = new BasicParser();
-        CommandLine cmd = null;
+        CommandLine cmd;
 
         try {
             cmd = parser.parse(options, args);

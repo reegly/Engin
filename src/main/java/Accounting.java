@@ -45,29 +45,4 @@ public class Accounting {
     }
 
 
-    public static long sesTime(HashMap<String, String> hashMap) {
-        String t1 = hashMap.get("startDate");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date time1 = new Date();
-        try {
-            time1 = format.parse(t1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String t2 = hashMap.get("endDate");
-
-        Date time2 = new Date();
-        try {
-            time2 = format.parse(t2);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        long time;
-        time = time2.getTime() - time1.getTime();
-
-        return Math.abs(time / 1000 / 60 / 60 / 24 + 1);
-    }
 }
