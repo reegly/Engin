@@ -1,32 +1,31 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class Logging {
-    public void executeLogin(ArrayList<Accounting> accountsList, ArrayList<User> userList, ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
-        switch (hashMap.size()) {
+    public void executeLogin(ArrayList<Accounting> accountsList, ArrayList<User> userList, ArrayList<Roles> roleList, UserData userData) {
+        switch (userData.size()) {
             case 2: {
-                if (authenticationCheck(hashMap)) {
-                    authentication(userList, hashMap);
+                if (authenticationCheck(userData)) {
+                    authentication(userList, userData);
                 } else {
                     printHelp();
                 }
                 break;
             }
             case 4: {
-                if (authorizationCheck(hashMap)) {
-                    authentication(userList, hashMap);
-                    authorization(roleList, hashMap);
+                if (authorizationCheck(userData)) {
+                    authentication(userList, userData);
+                    authorization(roleList, userData);
                 } else {
                     printHelp();
                 }
                 break;
             }
             case 7: {
-                if (accountingCheck(hashMap)) {
-                    authentication(userList, hashMap);
-                    authorization(roleList, hashMap);
-                    accounting(accountsList, hashMap);
+                if (accountingCheck(userData)) {
+                    authentication(userList, userData);
+                    authorization(roleList, userData);
+                    accounting(accountsList, userData);
                 } else {
                     printHelp();
                 }
@@ -40,12 +39,12 @@ public class Logging {
         System.exit(0);
     }
 
-    private void authentication(ArrayList<User> userList, HashMap<String, String> hashMap) {
+    private void authentication(ArrayList<User> userList, UserData userData) {
         boolean userFound = false;
         User currentUser = null;
 
         for (User user : userList) {
-            if (user.getLogin().equals(hashMap.get("login"))) {
+            if (user.getLogin().equals(userData.getLogin())) {
                 userFound = true;
                 currentUser = user;
                 System.out.println("You're trying to login as " + user.getName());
@@ -56,7 +55,7 @@ public class Logging {
             System.exit(1);
         }
 
-        if (currentUser.getPassword().equals(Hash.makeHash(hashMap.get("pass")))) {
+        if (currentUser.getPassword().equals(Hash.makeHash(userData.getPassword()))) {
             System.out.println("Logged successfully.");
         } else {
             System.out.println("Wrong password!");
@@ -64,12 +63,12 @@ public class Logging {
         }
     }
 
-    private void authorization(ArrayList<Roles> roleList, HashMap<String, String> hashMap) {
+    private void authorization(ArrayList<Roles> roleList, UserData userData) {
         Permissions parsedRole = null;
         boolean roleFound = false;
         String userResource;
 
-        switch (hashMap.get("role").toUpperCase()) {
+        switch (userData.getRole().toUpperCase()) {
             case "READ": {
                 parsedRole = Permissions.READ;
                 break;
@@ -83,15 +82,15 @@ public class Logging {
                 break;
             }
             default: {
-                System.out.println(hashMap.get("role") + " is unknown role!");
+                System.out.println(userData.getRole() + " is unknown role!");
                 System.exit(3);
             }
         }
 
         for (Roles roles : roleList) {
-            if (roles.getLogin().equals(hashMap.get("login")) && roles.getRole().equals(parsedRole)) {
+            if (roles.getLogin().equals(userData.getLogin()) && roles.getRole().equals(parsedRole)) {
                 userResource = roles.getResource();
-                if (resourceCheck(hashMap, userResource)) {
+                if (resourceCheck(userData, userResource)) {
                     System.out.println("Access granted!");
                     roleFound = true;
                 }
@@ -104,24 +103,23 @@ public class Logging {
     }
 
 
-    private void accounting(ArrayList<Accounting> accountList, HashMap<String, String> hashMap) {
+    private void accounting(ArrayList<Accounting> accountList, UserData userData) {
         boolean valid = true;
-        if (!Accounting.validTime(hashMap)) {
+
+        if (!Accounting.validTime(userData)) {
             System.out.println("Data has a wrong format!");
             valid = false;
         }
-
-        if (!Accounting.validValue(hashMap)) {
+        if (!Accounting.validValue(userData)) {
             System.out.println("Value is incorrect!");
             valid = false;
         }
-
         if (!valid) {
-            System.out.println("Unvalid activity!");
+            System.out.println("Invalid activity!");
             System.exit(5);
         }
 
-        Accounting acc = new Accounting(hashMap);
+        Accounting acc = new Accounting(userData);
         accountList.add(acc);
     }
 
@@ -130,25 +128,25 @@ public class Logging {
         Input.help();
     }
 
-    private static boolean authenticationCheck(HashMap<String, String> hashMap) {
-        return hashMap.containsKey("login") && hashMap.containsKey("pass");
+    private static boolean authenticationCheck(UserData userData) {
+        return (userData.getLogin() != null) && (userData.getPassword() != null);
     }
 
-    private static boolean authorizationCheck(HashMap<String, String> hashMap) {
-        return hashMap.containsKey("role")
-                && hashMap.containsKey("resource")
-                && authenticationCheck(hashMap);
+    private static boolean authorizationCheck(UserData userData) {
+        return (userData.getResource() != null)
+                && (userData.getRole() != null)
+                && (authenticationCheck(userData));
     }
 
-    private static boolean accountingCheck(HashMap<String, String> hashMap) {
-        return hashMap.containsKey("startDate")
-                && hashMap.containsKey("endDate")
-                && hashMap.containsKey("volumeResource")
-                && authorizationCheck(hashMap);
+    private static boolean accountingCheck(UserData userData) {
+        return (userData.getStartDate() != null)
+                && (userData.getEndDate() != null)
+                && (userData.getVolumeResource() != null)
+                && authorizationCheck(userData);
     }
 
-    private boolean resourceCheck(HashMap<String, String> hashMap, String userResource) {
-        String parsedRes[] = hashMap.get("resource").split("\\.");
+    private boolean resourceCheck(UserData userData, String userResource) {
+        String parsedRes[] = userData.getResource().split("\\.");
         String currentRes[] = userResource.split("\\.");
         if (parsedRes.length < currentRes.length) {
             return false;

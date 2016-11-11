@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -26,12 +26,10 @@ public class Main {
 
         ArrayList<Accounting> accList = new ArrayList<>();
 
-        Input input = new Input(args);
-        HashMap<String, String> hashMap = input.parse();
+        Input input = new Input();
+        UserData userData = input.parse(args);
 
         Logging logging = new Logging();
-        logging.executeLogin(accList, userList, roleList, hashMap);
-
-
+        logging.executeLogin(accList, userList, roleList, userData);
     }
 }

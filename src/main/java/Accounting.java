@@ -1,6 +1,5 @@
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+
 
 public class Accounting {
     private String startDate;
@@ -10,31 +9,31 @@ public class Accounting {
     private String role;
 
 
-    Accounting(HashMap<String, String> hashMap) {
-        this.startDate = hashMap.get("startDate");
-        this.endDate = hashMap.get("endDate");
-        this.value = hashMap.get("volumeResource");
-        this.user = hashMap.get("login");
-        this.role = hashMap.get("role");
+    Accounting(UserData userData) {
+        this.startDate = userData.getStartDate();
+        this.endDate = userData.getEndDate();
+        this.value = userData.getVolumeResource();
+        this.user = userData.getLogin();
+        this.role = userData.getRole();
     }
 
 
-    public static boolean validTime(HashMap<String, String> hashMap) {
+    public static boolean validTime(UserData userData) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
             format.setLenient(false);
-            format.parse(hashMap.get("startDate"));
-            format.parse(hashMap.get("endDate"));
+            format.parse(userData.getStartDate());
+            format.parse(userData.getEndDate());
         } catch (Exception e) {
             return false;
         }
         return true;
     }
 
-    public static boolean validValue(HashMap<String, String> hashMap) {
+    public static boolean validValue(UserData userData) {
         int value;
         try {
-            value = Integer.parseInt(hashMap.get("volume_resource"));
+            value = Integer.parseInt(userData.getVolumeResource());
             if (value <= 0) {
                 return false;
             }
