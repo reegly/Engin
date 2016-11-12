@@ -52,8 +52,5 @@ Temporary Items
 *.iml
 *.class
 
-#Maven
-pom.xml
-
-#Backup files
+#Backup Files
 *.back
