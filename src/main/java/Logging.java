@@ -1,8 +1,9 @@
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 
 public class Logging {
-    public void executeLogin(ArrayList<Accounting> accountsList, ArrayList<User> userList, ArrayList<Roles> roleList, UserData userData) {
+    public void executeLogin(ArrayList<Accounting> accountsList, ArrayList<User> userList, ArrayList<Roles> roleList, UserData userData) throws Throwable {
         switch (userData.size()) {
             case 2: {
                 if (authenticationCheck(userData)) {
@@ -39,7 +40,7 @@ public class Logging {
         System.exit(0);
     }
 
-    private void authentication(ArrayList<User> userList, UserData userData) {
+    private void authentication(ArrayList<User> userList, UserData userData) throws NoSuchAlgorithmException {
         boolean userFound = false;
         User currentUser = null;
 
@@ -55,7 +56,8 @@ public class Logging {
             System.exit(1);
         }
 
-        if (currentUser.getPassword().equals(Hash.makeHash(userData.getPassword()))) {
+        String passwordCheck = Hash.getHash(Hash.getHash(userData.getPassword()) + currentUser.getSalt());
+        if (currentUser.getPassword().equals(passwordCheck)) {
             System.out.println("Logged successfully.");
         } else {
             System.out.println("Wrong password!");

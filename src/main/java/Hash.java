@@ -1,18 +1,17 @@
-
-
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 
 public class Hash {
 
-    public static String makeHash(String password) {
-        String salt = "shajKKheyg1";
-        password = getHash(getHash(password) + salt);
-        return password;
+    public static String makeSalt() {
+        SecureRandom random = new SecureRandom();
+        return new BigInteger(130, random).toString(32);
     }
 
-    public static String getHash(String str) {
+    public static String getHash(String str) throws NoSuchAlgorithmException {
         MessageDigest md5;
         StringBuffer hexString = new StringBuffer();
 
