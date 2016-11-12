@@ -48,7 +48,6 @@ Temporary Items
 
 #Java files
 .idea/
-.target/
 *.xml
 *.iml
 *.class
