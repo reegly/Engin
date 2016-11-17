@@ -2,17 +2,17 @@
 
 ##Build project:
 ```
-BUILD.bat
+$ ./build.sh
 ```
 
 ##Run project:
 ```
-RUN.bat
+$ ./run.sh
 ```
 
 ##Test project:
 ```
-TEST.bat
+$ ./test.sh
 ```
 
 ##Allowed arguments and help:
